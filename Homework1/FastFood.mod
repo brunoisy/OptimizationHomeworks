@@ -6,7 +6,7 @@ param prix{allProducts};
 param lowerBound{nutriments};
 param upperBound{nutriments};
 
-var products{allProducts} integer >=0; # each product chosen for the menu (==1 if product is chosen)
+var products{allProducts} integer >=0; # quantity of each product chosen for the menu
 # binary variable (?)
 
 minimize cost: sum{a in allProducts} prix[a]*products[a];
@@ -20,3 +20,6 @@ option solver gurobi;
 solve;
 display products;
 display cost;
+
+
+# add constraint binaire? nn marche pas, add constraint max 5 d'un produit? marche pas :/
