@@ -1,5 +1,4 @@
 set allProducts;
-param nmonths; # remplacer par set.size(months)?
 set months;
 set machines;
 
@@ -13,11 +12,13 @@ param storageCapacity;
 param storageUnitCost;
 param finalStorage;
 
-param daysAmonth;
-param shiftsAday;
+set days;
+set weeks;
+param nShifts;
+set shiftsAday = 1..nShifts;
 param hoursAshift;
 
-set shifts = 1..shiftsAday*daysAmonth*nmonths; #a modif pr présentation?
+
 var products{allProducts, shifts} >=0; #chaque produit doit être fini a la fin d'un shift
 
 
