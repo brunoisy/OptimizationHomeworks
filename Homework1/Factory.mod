@@ -1,5 +1,3 @@
-reset;
-
 set allProducts;
 set months;
 set machines;
@@ -44,7 +42,7 @@ subject to finalStorage{a in allProducts} : storage[a,LASTMONTH] == finalStorage
 
 
 
-
+reset;
 data Factory.dat;
 option solver gurobi; # cplex is another good choice for (mixed integer) linear optimization
 solve;
