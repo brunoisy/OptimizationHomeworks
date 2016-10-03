@@ -20,22 +20,22 @@ set shiftsAday = 1..nShifts;
 param hoursAshift;
 
 set shifts{shiftsAday, days, weeks, months};
-var products{allProducts, shifts} integer >=0; #chaque produit doit être fini a la fin d'un shift
+var production{allProducts, shifts} integer >=0; #chaque produit doit être fini a la fin d'un shift
 var storage{allProducts, months} integer >=0;# quantity of each type of product in storage at end of month m
 
 
 
-maximize profitTotal: sum{a in allProducts, s in shifts} profit[a]*products[a][s] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
+maximize profitTotal: sum{a in allProducts, s in shifts} profit[a]*production[a][s] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
 
 subject to timeLimit {s in shifts} : 
-			sum{a in allProducts, m in machines} time[products[a,s],m] <= hoursAshift;
+			sum{a in allProducts, m in machines} time[production[a,s],m] <= hoursAshift;
 subject to timeMachineLimit {d in days, m in months, s in shiftsAday, w in weeks, ma in machines}:
-			sum{a in allproducts} time[products[a,shifts[s,d,w,m]],ma]<=(nMachines[ma]-maintenance[m,ma])*hoursAshift;
+			sum{a in allProducts} time[production[a,shifts[s,d,w,m]],ma]<=(nMachines[ma]-maintenance[m,ma])*hoursAshift;
 #subject to demandLimit :
 subject to flux{a in allProducts, m in months} : 
-	sum{s in shiftsAday, d in days, w in weeks} products[a,[s,d,w,m+1]]-products[a,[s,d,w,m]]==storage[a,[s,d,w,m]]-storage[a,[s,d,w,m+1]];#!?
+	sum{s in shiftsAday, d in days, w in weeks} production[a,[s,d,w,m+1]]-production[a,[s,d,w,m]]==storage[a,[s,d,w,m]]-storage[a,[s,d,w,m+1]];#!?
 #problème premier/dernier mois! problème écriture shift [s,d,w,m]?
-subject to storageLimit{a in allProducts, m in months} : sum{s in shiftsAday, d in days, w in weeks} products[a,[s,d,w,m]]  <= storageCapacity;
+subject to storageLimit{a in allProducts, m in months} : sum{s in shiftsAday, d in days, w in weeks} production[a,[s,d,w,m]]  <= storageCapacity;
 subject to initStorage :
 subject to finalStorage{a in allProducts} : storage[a,LASTMONTH] == finalStorage;
 #problème LASTMONTH
