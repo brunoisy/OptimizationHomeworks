@@ -1,21 +1,32 @@
 set allProducts;
-set periods;
+param nmonths; # remplacer par set.size(months)?
+set months;
 set machines;
+
 param nMachines{machines};
 param time{allProducts, machines};
 param profit{allProducts};
-set maintenance{periods} within machines; # a maintenance is a set of machines +number!!
-# ou set maintenance{periods, machines} rempli de 1 et 0 --> mieux!!
-param limit{allProducts, periods};
+param maintenance{months, machines} #rempli de 0,1,2...
+param limit{months, allProducts};
 
 param storage_capacity;
 param storage_unit_cost;
-param daysAweek;
+
+param daysAmonth;
 param shiftsAday;
 param hoursAshift;
 
 
-var products{allProducts} >=0;
-var ;
+set shifts = 1..shiftsAday*daysAmonth*nmonths; #a modif pr présentation?
+var products{allProducts, shifts} >=0; #chaque produit doit être fini a la fin d'un shift
 
-maximize profit:
+
+maximize profit: sum{a in allProducts, s in shifts} profit[a]*products[a][s];
+
+
+
+
+data Factory.dat;
+option solver gurobi; # cplex is another good choice for (mixed integer) linear optimization
+solve;
+# display...
