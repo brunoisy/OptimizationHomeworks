@@ -37,8 +37,10 @@ subject to timeLimit {s in shifts} :
 subject to timeMachineLimit {d in days, m in months, s in shiftsAday, w in weeks, ma in machines}:
 			sum{a in allProducts} time[production[a,shifts[s,d,w,m]],ma]<=(nMachines[ma]-maintenance[m,ma])*hoursAshift;
 
+subject to firstMonthFlux{a in allProducts} : sum{s in shiftsAday, d in days, w in weeks} production[a,[s,d,w,1]]-sales[a,1]==storage[a,1];
+
 subject to flux{a in allProducts, m in months} : 
-	sum{s in shiftsAday, d in days, w in weeks} production[a,[s,d,w,m]]-sales[a,m]==storage[a,m]-storage[a,m-1];#!?
+	sum{s in shiftsAday, d in days, w in weeks} production[a,[s,d,w,m]]-sales[a,m]==storage[a,m]-storage[a,m-1];
 #problème premier mois! problème écriture shift [s,d,w,m]?
 
 subject to initStorage :
