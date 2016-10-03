@@ -1,3 +1,5 @@
+reset;
+
 set allProducts;
 set months;
 set machines;
@@ -24,12 +26,14 @@ var products{allProducts, shifts} integer >=0; #chaque produit doit être fini a
 var storage{allProducts, months} integer >=0;# quantity of each type of product in storage at end of month m
 
 
-maximize profit: sum{a in allProducts, s in shifts} profit[a]*products[a][s] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
 
+maximize profitTotal: sum{a in allProducts, s in shifts} profit[a]*products[a][s] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
 
-subject to timeLimit : 
-subject to machineLimit :
-subject to demandLimit :
+subject to timeLimit {s in shifts} : 
+			sum{a in allProducts, m in machines} time[products[a,s],m] <= hoursAshift;
+subject to timeMachineLimit {d in days, m in months, s in shiftsAday, w in weeks, ma in machines}:
+			sum{a in allproducts} time[products[a,shifts[s,d,w,m]],ma]<=(nMachines[ma]-maintenance[m,ma])*hoursAshift;
+#subject to demandLimit :
 subject to flux{a in allProducts, m in months} : 
 	sum{s in shiftsAday, d in days, w in weeks} products[a,[s,d,w,m+1]]-products[a,[s,d,w,m]]==storage[a,[s,d,w,m]]-storage[a,[s,d,w,m+1]];#!?
 #problème premier/dernier mois! problème écriture shift [s,d,w,m]?
@@ -37,6 +41,7 @@ subject to storageLimit{a in allProducts, m in months} : sum{s in shiftsAday, d 
 subject to initStorage :
 subject to finalStorage{a in allProducts} : storage[a,LASTMONTH] == finalStorage;
 #problème LASTMONTH
+
 
 
 
