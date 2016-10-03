@@ -17,7 +17,6 @@ param daysAmonth;
 param shiftsAday;
 param hoursAshift;
 
-
 set shifts = 1..shiftsAday*daysAmonth*nmonths; #a modif pr présentation?
 var products{allProducts, shifts} >=0; #chaque produit doit être fini a la fin d'un shift
 
