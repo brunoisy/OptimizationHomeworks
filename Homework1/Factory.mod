@@ -5,11 +5,12 @@ set machines;
 param nMachines{machines};
 param time{allProducts, machines};
 param profit{allProducts};
-param maintenance{months, machines} #rempli de 0,1,2...
+param maintenance{months, machines}; #rempli de 0,1,2...
 param demand{months, allProducts};
 
 param storageCapacity;
 param storageUnitCost;
+param initStorage :=0;
 param finalStorage;
 
 set days;
@@ -18,19 +19,24 @@ param nShifts;
 set shiftsAday = 1..nShifts;
 param hoursAshift;
 
-
 set shifts{shiftsAday, days, weeks, months};
-var products{allProducts, shifts} >=0; #chaque produit doit être fini a la fin d'un shift
+var products{allProducts, shifts} integer >=0; #chaque produit doit être fini a la fin d'un shift
+var storage{allProducts, months} integer >=0;# quantity of each type of product in storage at end of month m
 
 
-maximize profit: sum{a in allProducts, s in shifts} profit[a]*products[a][s];#- stockage
+maximize profit: sum{a in allProducts, s in shifts} profit[a]*products[a][s] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
 
 
 subject to timeLimit : 
 subject to machineLimit :
 subject to demandLimit :
-subject to storageLimit : 
-subject to finalStorageLimit :
+subject to flux{a in allProducts, m in months} : 
+	sum{s in shiftsAday, d in days, w in weeks} products[a,[s,d,w,m+1]]-products[a,[s,d,w,m]]==storage[a,[s,d,w,m]]-storage[a,[s,d,w,m+1]];#!?
+#problème premier/dernier mois! problème écriture shift [s,d,w,m]?
+subject to storageLimit{a in allProducts, m in months} : sum{s in shiftsAday, d in days, w in weeks} products[a,[s,d,w,m]]  <= storageCapacity;
+subject to initStorage :
+subject to finalStorage{a in allProducts} : storage[a,LASTMONTH] == finalStorage;
+#problème LASTMONTH
 
 
 
