@@ -27,7 +27,10 @@ var storage{allProducts, months} integer >=0, <=storageCapacity;# quantity of ea
 var sales{a in allProducts, m in months} integer >=0, <=demand[m,a]; #quantity of each type sold at each end of month
 
 
-maximize profitTotal: sum{a in allProducts, s in shifts} profit[a]*production[a][s] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
+
+
+maximize profitTotal: sum{a in allProducts, s in shifts} profit[a]*products[a,s] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
+
 
 subject to timeLimit {s in shifts} : 
 			sum{a in allProducts, m in machines} time[production[a,s],m] <= hoursAshift;
@@ -42,8 +45,6 @@ subject to flux{a in allProducts, m in months} :
 subject to initStorage :
 
 subject to finalStorage{a in allProducts} : storage[a,LASTMONTH] == finalStorage;
-#problème LASTMONTH
-
 
 
 
