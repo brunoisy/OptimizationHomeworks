@@ -1,7 +1,5 @@
 set allProducts := 1 2 3 4 5 6 7;
 
-param nmonths := 7;
-
 set months := January February March April May June;
 
 set machines := Grinder VerticalDrill HorizontalDrill Borer Planer;
@@ -41,10 +39,10 @@ param storageUnitCost := 0.5;
 
 param finalStorage := 50;
 
-param shiftsAday := 2;
 
-param daysAmonth := 24;
-
+set days := monday tuesday wednesday thursday friday saturday;
+set weeks := 1 2 3 4;
+param nShifts := 2; 
 param hoursAshift := 8;
 	
 	
