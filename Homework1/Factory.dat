@@ -27,7 +27,7 @@ param maintenance : Grinder VerticalDrill HorizontalDrill Borer Planer :=
 	May                 1         1             0          0      0
 	June                0         0             1          0      0;
 	
-param limit :       1    2    3    4    5    6    7  :=
+param demand :      1    2    3    4    5    6    7  :=
 	January		  500 1000	300  300  800  200  100	
 	February      600  500  200    0  400  300  150
 	March         300  600    0    0  500  400  100
@@ -35,9 +35,11 @@ param limit :       1    2    3    4    5    6    7  :=
 	May             0  100  500  100 1000  300    0
 	June          500  500  100  300 1100  500   60;
 
-param storage_capacity := 100;
+param storageCapacity := 100;
 
-param storage_unit_cost := 0.5;
+param storageUnitCost := 0.5;
+
+param finalStorage := 50;
 
 param shiftsAday := 2;
 
