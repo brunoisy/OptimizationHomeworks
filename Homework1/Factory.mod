@@ -5,7 +5,7 @@ set months ordered;
 set machines;
 
 param nMachines{machines};
-param time{allProducts, machines};
+param time{machines, allProducts};
 param profit{allProducts};
 param maintenance{months, machines};
 param demand{months, allProducts};
@@ -33,7 +33,7 @@ maximize profitTotal: sum{a in allProducts, (sh,d,w,m) in shifts} profit[a]*prod
 
 
 subject to machineLimit{(sh,d,w,m) in shifts, ma in machines} :
-			sum{a in allProducts} production[a,sh,d,w,m]*time[a,ma] <= (nMachines[ma]-maintenance[m,ma])*hoursAshift;
+			sum{a in allProducts} production[a,sh,d,w,m]*time[ma,a] <= (nMachines[ma]-maintenance[m,ma])*hoursAshift;
 #assez contraignant?
 
 subject to firstMonthFlux{a in allProducts} : sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,first(months)]-sales[a,first(months)]==storage[a,first(months)];
@@ -46,11 +46,11 @@ subject to finalStorageConst{a in allProducts} : storage[a,last(months)] == fina
 
 # copie sauvegarde just in case
 #subject to timeLimit {d in days, m in months, s in shiftsAday, w in weeks} : 
-#			sum{a in allProducts, ma in machines} time[production[a,s,d,w,m],ma] <= hoursAshift;
+#			sum{a in allProducts, ma in machines} time[ma,production[a,s,d,w,m]] <= hoursAshift;
 
 
 #subject to timeMachineLimit {d in days, m in months, s in shiftsAday, w in weeks, ma in machines}:
-#			sum{a in allProducts} production[a,s,d,w,m]*time[a,ma]<=(nMachines[ma]-maintenance[m,ma])*hoursAshift;
+#			sum{a in allProducts} production[a,s,d,w,m]*time[ma,a]<=(nMachines[ma]-maintenance[m,ma])*hoursAshift;
 
 
 data Factory.dat;
