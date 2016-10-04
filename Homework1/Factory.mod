@@ -39,7 +39,7 @@ subject to machineLimit{(sh,d,w,m) in shifts, ma in machines} :
 subject to firstMonthFlux{a in allProducts} : sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,first(months)]-sales[a,first(months)]==storage[a,first(months)];
 
 subject to flux{a in allProducts, m in (months diff {first(months)})} : 
-			sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,m]-sales[a,m]==storage[a,m]-storage[a,m-1];
+			sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,m]-sales[a,m]==storage[a,m]-storage[a,prev(m, months)];
 
 subject to finalStorageConst{a in allProducts} : storage[a,last(months)] == finalStorage;
 
@@ -56,5 +56,5 @@ subject to finalStorageConst{a in allProducts} : storage[a,last(months)] == fina
 data Factory.dat;
 option solver gurobi;
 solve;
-# display...
+display production;
 # problème : production par shift, est-ce assez détaillé?! solution correcte mais pas assez détaillée
