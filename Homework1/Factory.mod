@@ -50,10 +50,10 @@ subject to finalStorageConstr{a in allProducts} : storage[a,last(months)] == fin
 data Factory.dat;
 option solver gurobi;
 solve;
-#display storage;
-#display sales;
-#display production;
+display storage;
+display sales;
 
+printf "\n";
 for{m in months}{
 	printf "month : %s\n", m;
 	for{w in weeks}{
@@ -74,7 +74,7 @@ for{m in months}{
 			printf "prod%s : ",a;
 			for{d in days}{
 				for{sh in shiftsAday}{
-					printf "%.3d |", production[a,sh,d,w,m];
+					printf "%3d |", production[a,sh,d,w,m];
 				}
 			}
 			printf "\n";
