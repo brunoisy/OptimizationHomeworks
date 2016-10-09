@@ -7,7 +7,7 @@ set machines;
 param nMachines{machines};
 param time{machines, allProducts};
 param profit{allProducts};
-param maintenance{machines}; # modified from Factory.mod
+param maintenance{machines}; # number of machines from each type which must be maintained for a month
 param demand{months, allProducts};
 
 param storageCapacity;
