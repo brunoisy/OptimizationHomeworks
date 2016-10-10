@@ -83,7 +83,8 @@ for{m in months}{
 	}
 	printf "__________\n\n";
 }
-	
+
+display profitTotal;
 
 
 

@@ -55,4 +55,5 @@ solve;
 #display production;
 display storage;
 display sales;
+display profitTotal;
 
