@@ -1,5 +1,3 @@
-reset;
-
 set allProducts;
 set burgers;
 set frites;
@@ -12,8 +10,7 @@ param prix{allProducts};
 param lowerBound{nutriments};
 param upperBound{nutriments};
 
-var products{allProducts} integer >=0; # quantity of each product chosen for the menu
-# binary variable (?)
+var products{allProducts} integer >=0; 
 
 minimize cost: sum{a in allProducts} prix[a]*products[a];
 
@@ -25,8 +22,3 @@ subject to MinBoissons : sum{b in boissons} products[b] >= 1;
 subject to MinFrites: sum{f in frites} products[f] >= 1;
 subject to MinSalades : sum{s in salades} products[s] >= 1;
 
-data FastFoodBis.dat
-option solver gurobi;
-solve;
-display products;
-display cost;

@@ -1,5 +1,3 @@
-reset;
-
 set days ordered;
 set allProducts ordered;
 set burgers;
@@ -25,9 +23,5 @@ subject to MinBoissons{d in days}: sum{b in boissons} products[b,d] >= 1;
 subject to MinFrites{d in days}: sum{f in frites} products[f,d] >= 1;
 subject to MinSalades{d in days}: sum{s in salades} products[s,d] >= 1 ;
 
-data FastFoodWeek.dat
-option solver gurobi;
-solve;
-display products;
-display cost;
+
 
