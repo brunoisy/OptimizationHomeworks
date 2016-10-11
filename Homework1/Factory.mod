@@ -1,4 +1,3 @@
-
 set allProducts;
 set months ordered;
 set machines;
@@ -34,11 +33,11 @@ maximize profitTotal: sum{a in allProducts, (sh,d,w,m) in shifts} profit[a]*prod
 subject to machineLimit{(sh,d,w,m) in shifts, ma in machines} :
 			sum{a in allProducts} production[a,sh,d,w,m]*time[ma,a] <= (nMachines[ma]-maintenance[m,ma])*hoursAshift;
 
-subject to firstMonthFlux{a in allProducts} : sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,first(months)]-sales[a,first(months)]==storage[a,first(months)];
+subject to firstMonthFlux{a in allProducts} : 
+			sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,first(months)]-sales[a,first(months)]==storage[a,first(months)];
 
 subject to flux{a in allProducts, m in (months diff {first(months)})} : 
 			sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,m]-sales[a,m]==storage[a,m]-storage[a,prev(m, months)];
 
-subject to finalStorageConstr{a in allProducts} : storage[a,last(months)] == finalStorage;
-
-
+subject to finalStorageConstr{a in allProducts} : 
+			storage[a,last(months)] == finalStorage;

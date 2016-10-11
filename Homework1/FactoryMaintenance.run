@@ -9,6 +9,7 @@ solve;
 display storage;
 display sales;
 display profitTotal;
+display maintained;
 
 printf "\n";
 for{m in months}{
