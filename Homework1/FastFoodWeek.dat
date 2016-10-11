@@ -6,6 +6,16 @@ set allProducts := BigMac RoyalDeluxe RoyalBacon RoyalCheese DoubleCheeseburger 
 	FriteGrande DeluxePotatoesMoyenne DeluxePotatoesGrande PtiteSalade PtitesTomates CocaCola CocaColaLight
 	CocaColaZero Sprite FantaOrange	IceTeaPeche MinuteMaid Evian Badoit SaladeCaesar SaladePateMozzarella
 	SaladePDT;
+	
+set burgers := BigMac RoyalDeluxe RoyalBacon RoyalCheese DoubleCheeseburger Hamburger Cheeseburger
+	McChicken ChickenMcNuggets_4 ChickenMcNuggets_6 ChickenMcNuggets_9 ChickenMcNuggets_20 McFish FiletOFish
+	CroqueMcDo McWrapPouletBacon McWrapPouletPoivre PtitWrapRanch PtitItalien;
+	
+set frites := FritePetite FriteMoyenne FriteGrande DeluxePotatoesMoyenne DeluxePotatoesGrande;
+
+set salades := PtiteSalade PtitesTomates SaladeCaesar SaladePateMozzarella SaladePDT;
+
+set boissons := CocaCola CocaColaLight CocaColaZero Sprite FantaOrange	IceTeaPeche MinuteMaid Evian Badoit;
 
 set nutriments := EnergieKcal MatGrasses AcGrasSatures Glucides FibresAlim Proteines Sels;
 
