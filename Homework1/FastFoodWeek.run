@@ -1,0 +1,7 @@
+reset;
+data FastFoodWeek.dat;
+model FastFoodWeek.mod;
+option solver gurobi;
+solve;
+display products;
+display cost;
