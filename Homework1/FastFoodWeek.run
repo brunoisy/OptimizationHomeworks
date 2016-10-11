@@ -1,6 +1,6 @@
 reset;
-data FastFoodWeek.dat;
 model FastFoodWeek.mod;
+data FastFoodWeek.dat;
 option solver gurobi;
 solve;
 display products;
