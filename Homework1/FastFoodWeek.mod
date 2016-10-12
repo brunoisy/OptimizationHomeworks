@@ -15,9 +15,9 @@ var products{allProducts, days} integer >=0; # quantity of each product chosen f
 
 minimize cost: sum{a in allProducts, d in days} prix[a]*products[a, d];
 
-subject to lowerBounds{n in nutriments, d in days} : sum{a in allProducts} valNutr[a,n]*products[a,d] >= 0.8*lowerBound[n];
-subject to upperBounds{n in nutriments, d in days} : sum{a in allProducts} valNutr[a,n]*products[a,d] <= 1.2*upperBound[n];
-subject to variety{a in allProducts}: sum{d in days} products[a,d] <= 6;
+subject to lowerBounds{n in nutriments, d in days} : sum{a in allProducts} valNutr[a,n]*products[a,d] >= 0.5*lowerBound[n];
+subject to upperBounds{n in nutriments, d in days} : sum{a in allProducts} valNutr[a,n]*products[a,d] <= 1.4*upperBound[n];
+subject to variety{a in allProducts}: sum{d in days} products[a,d] <= 2;
 subject to MinBurgers{d in days}: sum{b in burgers} products[b,d] >= 1;
 subject to MinBoissons{d in days}: sum{b in boissons} products[b,d] >= 1;
 subject to MinFrites{d in days}: sum{f in frites} products[f,d] >= 1;
