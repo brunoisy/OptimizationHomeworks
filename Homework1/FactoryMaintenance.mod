@@ -26,15 +26,12 @@ var sales{a in allProducts, m in months} integer >=0, <=demand[m,a];# quantity o
 var maintained{months, machines} integer >=0;
 
 
-maximize profitTotal: sum{a in allProducts, (sh,d,w,m) in shifts} profit[a]*production[a,sh,d,w,m] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
+maximize profitTotal: sum{a in allProducts, m in months} profit[a]*sales[a,m] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
 
 
 
 subject to machineLimit{(sh,d,w,m) in shifts, ma in machines} :
 			sum{a in allProducts} production[a,sh,d,w,m]*time[ma,a] <= (nMachines[ma]-maintained[m,ma])*hoursAshift;
-
-#subject to productLimit{(sh,d,w,m) in shifts, a in allProducts} :
-#			sum{ma in machines} production[a,sh,d,w,m]*time[ma,a] <= hoursAshift;
 
 subject to firstMonthFlux{a in allProducts} : 
 			sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,first(months)]-sales[a,first(months)]==storage[a,first(months)];
