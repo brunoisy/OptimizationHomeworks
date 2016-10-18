@@ -26,7 +26,7 @@ var sales{a in allProducts, m in months} integer >=0, <=demand[m,a];# quantity o
 
 
 
-maximize profitTotal: sum{a in allProducts, (sh,d,w,m) in shifts} profit[a]*production[a,sh,d,w,m] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
+maximize profitTotal: sum{a in allProducts, m in months} profit[a]*sales[a,m] - storageUnitCost*sum{a in allProducts, m in months}storage[a,m];
 
 
 
