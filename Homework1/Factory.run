@@ -3,8 +3,10 @@ model Factory.mod;
 data Factory.dat;
 option solver gurobi;
 solve;
-display storage;
+
+display monthlyProd;
 display sales;
+display storage;
 
 
 

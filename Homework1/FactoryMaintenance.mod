@@ -44,6 +44,15 @@ subject to finalStorageConstr{a in allProducts} :
 
 subject to maintenanceConstr{ma in machines} : 
 			sum{m in months} maintained[m, ma] >= maintenance[ma];
+			
+		
+		
+			
+# this variable is added only for easy display of monthly production			
+var monthlyProd{allProducts, months} integer >= 0;
+
+subject to prodSum{a in allProducts, m in months} :
+			monthlyProd[a,m] == sum{sh in shiftsAday, d in days, w in weeks} production[a,sh,d,w,m];
 
 
 

@@ -4,12 +4,10 @@ data FactoryMaintenance.dat;
 option solver gurobi;
 solve;
 
-
-
-display storage;
+display monthlyProd;
 display sales;
+display storage;
 display maintained;
-display profitTotal;
 
 
 printf "\n";
