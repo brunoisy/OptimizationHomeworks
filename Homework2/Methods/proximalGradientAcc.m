@@ -16,7 +16,7 @@ x(:,1) = x0;
 x(:,2) = x0;
 
 for k = 2:N+1
-	beta = (k-1)/(k+2);
+	beta = (k-3)/(k);
 	y = x(:,k)+beta*(x(:,k)-x(:,k-1));
 	y = y - h*gradf1(y);
 	for j=1:n
