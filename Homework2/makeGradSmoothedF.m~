@@ -1,0 +1,7 @@
+function [ gradF] = makeGradSmoothedF(A, b, lambda, mu)
+%MAKEGRADSMOOTHEDF Summary of this function goes here
+%   Detailed explanation goes here
+
+
+end
+
