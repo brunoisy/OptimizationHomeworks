@@ -6,12 +6,12 @@ n= length(x0);
 G = 2*norm(A'*(A*x0-b))+sqrt(n)*lambda;
 alpha = 2*epsilon/(G^2);
 
-x = zeros(N+1,1);
-x(1,1) = x0;
+x = zeros(n,N+1);
+x(:,1) = x0;
 
 for k = 1:N
-	g = 2*A'*(A*x(k)-b)+sign(x(k))*lambda;
-	x(k+1) = x(k)-alpha*g;
+	g = 2*A'*(A*x(:,k)-b)+sign(x(:,k))*lambda;
+	x(:,k+1) = x(:,k)-alpha*g;
 end
 
 end
