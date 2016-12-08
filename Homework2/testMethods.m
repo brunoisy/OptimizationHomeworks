@@ -14,3 +14,4 @@ for i=1:(N+1)
     fx(i) = f(x(:,i));
 end
 plot(1:(N+1),fx)
+
