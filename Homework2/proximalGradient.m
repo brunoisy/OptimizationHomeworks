@@ -10,8 +10,20 @@ h = lambda/L;
 		gradf1 = 2*A'*(A*x-b);
 	end
 
-for k = 1:N
+x = zeros(n,N+1);
+x(:,1) = x0;
 
+for k = 1:N
+	x(:,k+1) = x(:,k) - h * gradf1(x(:,k));
+	for j=1:n
+		if(x(j,k+1)>h)
+			x(j,k+1) = x(j,k+1) - h;
+		elseif(x(j,k+1)<-h)
+			x(j,k+1) = x(j,k+1) + h;
+		else
+			x(j,k+1) = 0;
+		end
+	end
 end
 
 end
