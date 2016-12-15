@@ -1,4 +1,4 @@
-function [gradF] = makeGradSmoothedF(A, b, mu)
+function [gradF] = makeGradSmoothedF(A, b, mu, lambda)
 %MAKEGRADSMOOTHEDF Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -16,7 +16,7 @@ function [gradF] = makeGradSmoothedF(A, b, mu)
         for i=1:n
             gradHn(i) = gradH(x(i));
         end
-        gradFofX = 2*A'*(A*x-b)+gradHn;
+        gradFofX = 2*A'*(A*x-b)+lambda*gradHn;
     end
 gradF = @newGradF;
 end

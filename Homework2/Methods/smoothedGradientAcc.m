@@ -2,10 +2,10 @@ function [ x ] = smoothedGradientAcc(A, b, lambda, x0, N, epsilon)
 
 n = length(x0);
 mu = epsilon/(lambda*n);
-L = 2*norm(eigs(A'*A,1))+1/mu;
+L = 2*norm(eigs(A'*A,1))+lambda/mu;
 
 h = 1/L;
-gradF = makeGradSmoothedF(A, b, mu);
+gradF = makeGradSmoothedF(A, b, mu, lambda);
 x = zeros(n,N+2);
 x(:,1) = x0;
 x(:,2) = x0;
