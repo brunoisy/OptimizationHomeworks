@@ -6,19 +6,19 @@ x0 = data.x0;
 
 N = 500;
 epsilon = 0.01;
-xOptimal = 0;% to change!
-fOptimal = 23;% to change!
+fOptimal = 23.67;% to change!
+NormX0MinusXOptimal = 5.490; % |x_0 - x^*
 
 f = @(x)norm(A*x-b)^2+lambda*norm(x,1);
 
 methods = {@smoothedGradient};
-%methods = {@subgradient, @smoothedGradient, @smoothedGradientAcc, @smoothedGradientAcc, @proximalGradient, @proximalGradientAcc, @interiorPoint};
-names = {'Subgradient', 'Smoothed Gradient', 'Accelerated Smoothed Gradient', 'Proximal Gradient', 'Accelerated Proximal Gradient', 'Interior Point'};
+%methods = {@subgradient, @smoothedGradient, @smoothedGradientAcc, @proximalGradient, @proximalGradientAcc, @interiorPoint};
+names = {' Subgradient', ' Smoothed Gradient', ' Accelerated Smoothed Gradient', ' Proximal Gradient', ' Accelerated Proximal Gradient', ' Interior Point'};
 
 
 % G = ***;% ??
 % alpha = 2*epsilon/(G^2);
-% LSmoothed = 2*norm(eigs(A'*A,1))+lambda/epsilon;
+% LSmoothed = 2*normest(A'A)+lambda/epsilon;
 %  
 % boundSubgradient = @(N)norm(x0 - xOptimal)^2/(2*alpha*N) + alpha*G^2/2;
 % boundSmoothedGradient = @(N)epsilon+LSmoothed*norm(x0-xOptimal)^2/N;
@@ -34,85 +34,15 @@ for i = 1:length(methods)
     x = method(A, b, lambda, x0, N, epsilon);
     fx = applyToColumns(f,x);
     figure
-     semilogy(1:(N+1),fx-fOptimal)
-    semilogy(1:(N+1),fx-fOptimal) % true convergence. Does not converge to right objective value !
+    semilogy(1:(N+1),fx-fOptimal) % true convergence.
     hold on
-    title(strcat('Convergence behavior for ', names{i}),'FontSize',16)
+    title(strcat('Convergence behavior for', names{i}),'FontSize',16)
     xlabel('number of iterations k','Fontsize',16);
-    if (i==1) %subgradient method
-        %ylabel('$\min\limits_{0 \leki \le N} f(x^{(k)})-f(x^*)$','Interpreter','latex','Fontsize',16);
-    else
-        ylabel('$|f(x_k) - f(x^*)|$','Interpreter','latex','Fontsize',16);
-    end
+%     if (i==1) %subgradient method
+%         ylabel('$\min\limits_{0 \leki \le N} f(x^{(k)})-f(x^*)$','Interpreter','latex','Fontsize',16);
+%     else
+%         ylabel('$|f(x_k) - f(x^*)|$','Interpreter','latex','Fontsize',16);
+%     end
     legend('true convergence', 'theoretical convergence');
 end
-
-
-% mettre les plots dans une seule boucle?
-%%% subgradient
-% x = subgradient(A, b, lambda, x0, N, epsilon);
-% fx = applyToColumns(f,x);
-% figure
-% semilogy(1:(N+1),fx-fOptimal) % true convergence. Does not converge to right objective value !
-% hold on
-
-% G = ***;% ??
-% alpha = 2*epsilon/(G^2);
-% bound = @(N)norm(x0 - xOptimal)^2/(2*alpha*N) + alpha*G^2/2;
-% boundN = applyToColumns(bound,1:(N+1));
-% semilogy(1:(N+1),boundN);% theoretical convergence
-% title('Convergence behavior for Subgradient','FontSize',16)
-% xlabel('nuber of iterations k','Fontsize',16);
-% ylabel('$\min\limits_{0 \leki \le N} f(x^{(k)})-f(x^*)$','Interpreter','latex','Fontsize',16);
-% legend('true convergence', 'theoretical convergence');
-
-%
-% %%% smoothed gradient %PROBLEME PLOT BORNE
-% x = smoothedGradient(A, b, lambda, x0, N, epsilon);
-% fx = applyToColumns(f,x);
-% figure
-% semilogy(1:(N+1),fx-fOptimal) % true convergence. Does not converge to right objective value !
-% hold on
-%
-% L = 2*norm(eigs(A'*A,1))+lambda/epsilon;
-% bound = @(N)epsilon+L*norm(x0-xOptimal)^2/N;
-% boundN = applyToColumns(bound,1:(N+1));
-% semilogy(1:(N+1),boundN);% theoretical convergence
-% title('Convergence behavior for Smoothed Gradient','FontSize',16)
-% xlabel('number of iterations k','Fontsize',16);
-% ylabel('$|f(x_k) - f(x^*)|$','Interpreter','latex','Fontsize',16);
-% legend('true convergence', 'theoretical convergence');
-
-
-% %%% accelerated smoothed gradient
-% x = smoothedGradientAcc(A, b, lambda, x0, N, epsilon);
-% fx = applyToColumns(f,x);
-% figure
-% semilogy(1:(N+1),fx-fOptimal) % true convergence. Does not converge to right objective value !
-% hold on
-%
-% L = 2*norm(eigs(A'*A,1))+lambda/epsilon;
-% bound = @(N)epsilon+L*norm(x0-xOptimal)^2/N;
-% boundN = applyToColumns(bound,1:(N+1));
-% semilogy(1:(N+1),boundN);% theoretical convergence
-% title('Convergence behavior for Accelerated Smoothed Gradient','FontSize',16)
-% xlabel('number of iterations k','Fontsize',16);
-% ylabel('$|f(x_k) - f(x^*)|$','Interpreter','latex','Fontsize',16);
-% legend('true convergence', 'theoretical convergence');
-
-% %%% proximal gradient method
-% x = proximalGradient(A, b, lambda, x0, N, epsilon);
-% fx = applyToColumns(f,x);
-% figure
-% semilogy(1:(N+1),fx-fOptimal) % true convergence. Does not converge to right objective value !
-% hold on
-%
-% L = 2*norm(eigs(A'*A,1))+lambda/epsilon;
-% bound = @(N)epsilon+L*norm(x0-xOptimal)^2/N;
-% boundN = applyToColumns(bound,1:(N+1));
-% semilogy(1:(N+1),boundN);% theoretical convergence
-% title('Convergence behavior for Proximal Gradient','FontSize',16)
-% xlabel('number of iterations k','Fontsize',16);
-% ylabel('$\min\limits_{0 \leki \le N} f(x^{(k)})-f(x^*)$','Interpreter','latex','Fontsize',16);
-% legend('true convergence', 'theoretical convergence');
 
