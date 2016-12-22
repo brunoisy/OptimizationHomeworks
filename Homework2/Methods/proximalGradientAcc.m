@@ -4,7 +4,7 @@ function [ x ] = proximalGradientAcc(A, b, lambda, x0, N, epsilon)
 
 
 n = length(x0);
-L = 2*max(eig(A'*A));
+L = 2*normest(A'*A);
 h = lambda/L;
 
 	function gradf1 = gradf1(x)
