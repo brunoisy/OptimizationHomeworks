@@ -7,11 +7,11 @@ x0 = data.x0;
 N = 5000;
 epsilon = 0.01;
 xOptimal = 0;% to change!
-fOptimal = 23,7;% to change!
+fOptimal = 23.7;% to change!
 
 f = @(x)norm(A*x-b)^2+lambda*norm(x,1);
 
-methods = {@smoothedGradient};
+methods = {@smoothedGradient, @smoothedGradientAcc};
 %methods = {@subgradient, @smoothedGradient, @smoothedGradientAcc, @smoothedGradientAcc, @proximalGradient, @proximalGradientAcc, @interiorPoint};
 names = {'Subgradient', 'Smoothed Gradient', 'Accelerated Smoothed Gradient', 'Proximal Gradient', 'Accelerated Proximal Gradient', 'Interior Point'};
 
@@ -32,6 +32,7 @@ names = {'Subgradient', 'Smoothed Gradient', 'Accelerated Smoothed Gradient', 'P
 for i = 1:length(methods)
     method = methods{i};
     x = method(A, b, lambda, x0, N, epsilon);
+    size(x)
     fx = applyToColumns(f,x);
     figure
     plot(1:(N+1),fx)
