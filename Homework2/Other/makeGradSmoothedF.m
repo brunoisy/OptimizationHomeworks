@@ -3,7 +3,7 @@ function [gradF] = makeGradSmoothedF(A, b, mu, lambda)
 %   Detailed explanation goes here
 
     function y = gradH(x)
-        if x <= mu 
+        if abs(x) <= mu 
             y=x/mu;
         else
             y=sign(x);
@@ -12,10 +12,11 @@ function [gradF] = makeGradSmoothedF(A, b, mu, lambda)
 
     function gradFofX = newGradF(x)
         n = length(x);
-        gradHn = zeros(1,n);
+        gradHn = zeros(n,1);
         for i=1:n
             gradHn(i) = gradH(x(i));
         end
+
         gradFofX = 2*A'*(A*x-b)+lambda*gradHn;
     end
 gradF = @newGradF;
