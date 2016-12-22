@@ -6,7 +6,7 @@ x0 = data.x0;
 
 N = 500;
 epsilon = 0.01;
-fOptimal = 23.67; %25.72?
+fOptimal = 23.673;
 normX0MinusXOptimal = 5.4903;% ||x_0 - x^*||
 
 f = @(x)norm(A*x-b)^2+lambda*norm(x,1);
@@ -32,7 +32,7 @@ bndProxGrAcc = @(N)L/(2*N)*normX0MinusXOptimal^2;%same?
 bounds = {applyToColumns(bndSubgr,1:N+1), applyToColumns(bndSmoothGr,1:N+1), applyToColumns(bndSmoothGrAcc,1:N+1), applyToColumns(bndProxGr,1:N+1), applyToColumns(bndProxGrAcc,1:N+1)};
 
 % Plots (every method except interior point)
-for i = 4%1:length(methods) 
+for i = 5%1:length(methods) 
     method = methods{i};
     x = method(A, b, lambda, x0, N, epsilon);
     fx = applyToColumns(f,x);

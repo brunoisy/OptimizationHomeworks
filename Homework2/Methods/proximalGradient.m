@@ -5,7 +5,18 @@ function [x] = proximalGradient(A, b, lambda, x0, N, epsilon)
 n = length(x0);
 L = 2*normest(A'*A);
 gradf1 = @(x) 2*A'*(A*x-b);
-prox = @(x) x-lambda/L*sign(x-lambda/L);
+    function [y] = prox(x)%vectoriser?
+        y=zeros(1,length(x));
+        for i=1:length(x)
+            if x(i) >lambda/L
+                y(i) = x(i)-lambda/L;
+            elseif abs(x(i)) <= lambda/L;
+                y(i) = 0;
+            else
+                y(i) = x(i)+lambda/L;
+            end
+        end
+    end
 
 x = zeros(n,N+1);
 x(:,1) = x0;
