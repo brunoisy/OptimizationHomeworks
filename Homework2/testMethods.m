@@ -11,7 +11,7 @@ fOptimal = 23.7;% to change!
 
 f = @(x)norm(A*x-b)^2+lambda*norm(x,1);
 
-methods = %{@proximalGradient};
+methods = {@proximalGradientAcc};
 %methods = {@subgradient, @smoothedGradient, @smoothedGradientAcc, @smoothedGradientAcc, @proximalGradient, @proximalGradientAcc, @interiorPoint};
 names = {'Subgradient', 'Smoothed Gradient', 'Accelerated Smoothed Gradient', 'Proximal Gradient', 'Accelerated Proximal Gradient', 'Interior Point'};
 

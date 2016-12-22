@@ -4,6 +4,7 @@ function [x] = proximalGradient(A, b, lambda, x0, N, epsilon)
 
 n = length(x0);
 L = 2*normest(A'*A);
+
 gradf1 = @(x) 2*A'*(A*x-b);
 prox = @(x) x-lambda/L*sign(x-lambda/L);
 
