@@ -1,4 +1,4 @@
-function [ x, z ] = interiorPoint(A, b, lambda)
+function [ x, objs] = interiorPoint(A, b, lambda)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -13,9 +13,7 @@ ctilde = [lambda*ones(1,n), zeros(1,n), zeros(1,n), zeros(1,n), 0, 1, zeros(1,m)
 K.f = 2*n;
 K.l = 2*n;
 K.r = m+2;
-[x,y,info]=sedumi_objs(Atilde, btilde, ctilde, K);
-
-z = ctilde*x;
+[x,y,info, objs]=sedumi_objs(Atilde, btilde, ctilde, K);
 
 x = x(n+1:2*n);
  
