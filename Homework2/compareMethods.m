@@ -2,47 +2,62 @@
 %%% 	Comparison of methods		%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-time = zeros(6,1);
+load('Data-Homework-2.mat')
+A = data.A;
+b = data.b;
+lambda = data.lambda;
+x0 = data.x0;
+
+epsilon = 0.01;
+fOptimal = 23.673;
+normX0MinusXOptimal = 13.79;%5.4903;% ||x_0 - x^*|| 
+
+f = @(x)norm(A*x-b)^2+lambda*norm(x,1);
+
+
+times = zeros(6,1);
 i=1;
 
-%%%   	 Subgradient methods 		%%%
-N = ; % To ADD
-t = cputime
-subgradient(A, b, lambda, x0, N, epsilon);
-time(i,1) = cputime-t;
-i=i+1;
+% %%%   	 Subgradient method 		%%%
+% N1 = 328974;
+% tic
+% subgradient(A, b, lambda, x0, N1, epsilon);
+% times(1) = toc;
 
-%%%   Smoothed Gradient methods 	%%%
-N = ; % To ADD
-t = cputime
+%%%   Smoothed Gradient method 	%%%
+N2 = 14476; % To ADD
+tic
 smoothedGradient(A, b, lambda, x0, N, epsilon);
-time(i,1) = cputime-t;
-i=i+1;
+times(2) = toc;
 
-%%%   Smoothed Graident Acc methods 	%%%
-N = ; % To ADD
-t = cputime
-smoothedGradientAcc(A, b, lambda, x0, N, epsilon);
-time(i,1) = cputime-t;
-i=i+1;
+
+%%%   Smoothed Graident Acc method 	%%%
+N3 = 511; % To ADD
+tic
+smoothedGradientAcc(A, b, lambda, x0, N3, epsilon);
+times(3) = toc;
+
 
 %%%    Proximal Gradient methods 	%%%
-N = ; % To ADD
-t = cputime
+N4 = 54; % To ADD
+tic
 proximalGradient(A, b, lambda, x0, N, epsilon);
-time(i,1) = cputime-t;
-i=i+1;
+times(4) = toc;
+
 
 %%%    Proximal Gradient Acc methods 	%%%
-N = ; % To ADD
-t = cputime
+N5 = 21; % To ADD
+tic
 proximalGradientAcc(A, b, lambda, x0, N, epsilon);
-time(i,1) = cputime-t;
-i=i+1;
+times(5) = toc;
 
-%%%      Interior Point Methods  	%%%
-N = ; % To ADD
-t = cputime
-IteriorPoint(A, b, lambda, x0, N, epsilon);
-time(i,1) = cputime-t;
-i=i+1;
+% %%%      Interior Point Methods  	%%%
+% N6 = ; % To ADD
+% tic
+% IteriorPoint(A, b, lambda, x0, N, epsilon);
+% time(5) = toc;
+
+bar(times)
+% names = ['Subgradient', 'Smoothed Gradient', 'Accelerated Smoothed Gradient', 'Proximal Gradient', 'Accelerated Proximal Gradient' ];
+% bar(times, names)
+title('time to convergence for epsilon = 0.01')
