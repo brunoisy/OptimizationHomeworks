@@ -29,7 +29,6 @@ bndSmoothGr = @(N)lambda*mu*n/2+LSmoothed*normX0MinusXOptimal^2/(2*N);
 bndSmoothGrAcc = @(N)lambda*mu*n/2+2*LSmoothed*normX0MinusXOptimal^2/(N+1)^2;
 bndProxGr = @(N)L/(2*N)*normX0MinusXOptimal^2;
 bndProxGrAcc = @(N)L/(2*N)*normX0MinusXOptimal^2;
-% boundInteriorPoint =
 bounds = {applyToColumns(bndSubgr,1:N+1), applyToColumns(bndSmoothGr,1:N+1), applyToColumns(bndSmoothGrAcc,1:N+1), applyToColumns(bndProxGr,1:N+1), applyToColumns(bndProxGrAcc,1:N+1)};
 
 % plots (every method except interior point)
@@ -49,14 +48,16 @@ for i=[3] %i = 1:length(methods)
 end
 
 
-% 
-% 
-% [~, fx] = interiorPoint(A, b, lambda);
-% figure
-% semilogy(1:length(fx),fx-fOptimal) % true convergence
-% hold on
-% %Plot Bound
-% title('Convergence behavior for interior point','FontSize',16)
-% xlabel('number of iterations k','Fontsize',16);
-% legend('true convergence', 'theoretical bound on convergence');
+[~, fx] = interiorPoint(A, b, lambda);
+% nint = size(fx,2);
+% boundInteriorPoint = @(N)exp(-N/sqrt(2*size(A,2)+2));
+% boundInt = applyToColumns(boundInteriorPoint,1:nint);
+figure
+semilogy(1:length(fx),fx-fOptimal,'-b') % true convergence
+hold on
+%semilogy(1:nint,boundInt,'r');
+title('Convergence behavior for interior point','FontSize',16)
+xlabel('number of iterations k','Fontsize',16);
+legend('true convergence', 'theoretical bound on convergence');
+
 
