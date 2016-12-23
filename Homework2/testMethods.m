@@ -33,20 +33,20 @@ bounds = {applyToColumns(bndSubgr,1:N+1), applyToColumns(bndSmoothGr,1:N+1), app
 
 % plots (every method except interior point)
 
-for i= i = 1:length(methods) 
-    method = methods{i};
-    x = method(A, b, lambda, x0, N, epsilon);
-    fx = applyToColumns(f,x);
-    figure
-    semilogy(1:(N+1),fx-fOptimal, '-b') % true convergence
-    hold on
-    semilogy(1:(N+1),bounds{i}, '-r');    
-    title(['Convergence behavior for', ' ', names{i}],'FontSize',16)
-    ylabel('$|f(x_k) - f(x^*)|$','Interpreter','latex','Fontsize',16)
-    xlabel('number of iterations k','Fontsize',16);
-    legend('true convergence', 'theoretical bound on convergence');
-    saveas(gcf,['plots/',names{i},'.eps']);
-end
+% for i = 1:length(methods) 
+%     method = methods{i};
+%     x = method(A, b, lambda, x0, N, epsilon);
+%     fx = applyToColumns(f,x);
+%     figure
+%     semilogy(1:(N+1),fx-fOptimal, '-b') % true convergence
+%     hold on
+%     semilogy(1:(N+1),bounds{i}, '-r');    
+%     title(['Convergence behavior for', ' ', names{i}],'FontSize',16)
+%     ylabel('$|f(x_k) - f(x^*)|$','Interpreter','latex','Fontsize',16)
+%     xlabel('number of iterations k','Fontsize',16);
+%     legend('true convergence', 'theoretical bound on convergence');
+%     saveas(gcf,['plots/',names{i},'.eps']);
+% end
 
 
 

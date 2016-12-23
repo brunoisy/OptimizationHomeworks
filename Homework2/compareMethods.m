@@ -10,13 +10,12 @@ x0 = data.x0;
 
 epsilon = 0.01;
 fOptimal = 23.673;
-normX0MinusXOptimal = 13.79;%5.4903;% ||x_0 - x^*|| 
+normX0MinusXOptimal = 13.79;%||x_0 - x^*|| 
 
 f = @(x)norm(A*x-b)^2+lambda*norm(x,1);
 
 
 times = zeros(6,1);
-i=1;
 
 % %%%   	 Subgradient method 		%%%
 % N1 = 328974;
