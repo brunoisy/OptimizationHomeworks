@@ -1,6 +1,20 @@
 function [ x ] = proximalGradientAcc(A, b, lambda, x0, N, epsilon)
-%PROXIMALGRADIENTACC Summary of this function goes here
-%   Detailed explanation goes here
+%	proximalGradientAcc 
+% It computes the optimal solution for l1-LS problem
+% by accelerated proximal gradient method
+%
+% min{f(x) = ||Ax-b||^2 + lambda ||x||_1}
+%
+% INPUT :
+%	- A : matrix A from the problem
+%	- b : matrix b from the problem
+% 	- lambda : parameter lambda from the problem
+%	- x0 : initial point
+%       - N : Number of iterations
+%       - epsilon : accuracy
+%
+% OUTPUT
+%	- x : solution for each iteration
 
 
 n = length(x0);
