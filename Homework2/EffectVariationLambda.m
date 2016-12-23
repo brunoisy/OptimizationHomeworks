@@ -6,7 +6,7 @@ epsilon = 0.01;
 fOptimal = 23.673;
 
 N = 500; % default number of iterations
-lambdavec = [0, 0.0001, 0.001, 0.01 1];
+lambdavec = [0, 0.0001, 0.001, 0.01, 1];
 
 n = length(lambdavec);
 
