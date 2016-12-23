@@ -15,7 +15,11 @@ f = @(x)norm(A*x-b)^2+lambda*norm(x,1);
 figure;
 for i = 1:n
 	lambda = lambdavec(i);
-	x = proximalGradient(A, b, lambda, x0, N, epsilon);
+	x = smoothedGradientAcc(A, b, lambda, x0, N, epsilon);
+    if(issparse(x))
+        S = sprintf('x is sparse : method : %d lambda and : %d ', i, lambda);
+        disp(S)
+    end
 	%[x, objs] = interiorPoint(A, b, lambda)
 	fx = applyToColumns(f,x);
 	semilogy(1:(N+1),fx-fOptimal) 
