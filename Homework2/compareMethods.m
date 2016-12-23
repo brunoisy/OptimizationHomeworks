@@ -26,7 +26,7 @@ times = zeros(6,1);
 %%%   Smoothed Gradient method 	%%%
 N2 = 14476; % To ADD
 tic
-smoothedGradient(A, b, lambda, x0, N, epsilon);
+smoothedGradient(A, b, lambda, x0, N2, epsilon);
 times(2) = toc;
 
 
@@ -40,14 +40,14 @@ times(3) = toc;
 %%%    Proximal Gradient methods 	%%%
 N4 = 54; % To ADD
 tic
-proximalGradient(A, b, lambda, x0, N, epsilon);
+proximalGradient(A, b, lambda, x0, N4, epsilon);
 times(4) = toc;
 
 
 %%%    Proximal Gradient Acc methods 	%%%
 N5 = 21; % To ADD
 tic
-proximalGradientAcc(A, b, lambda, x0, N, epsilon);
+proximalGradientAcc(A, b, lambda, x0, N5, epsilon);
 times(5) = toc;
 
 % %%%      Interior Point Methods  	%%%
