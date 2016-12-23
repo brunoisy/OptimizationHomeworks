@@ -57,6 +57,7 @@ times(5) = toc;
 % time(5) = toc;
 
 bar(times)
-names = {'Subgradient', 'Smoothed Grad', 'Acc Smoothed Grad', 'Proximal Grad', 'Acc Proximal Grad', 'Interior Point'};
+names = {'Subgradient', 'Smoothed\nGradient', 'Accelerated\nSmoothed Gradient', 'Proximal Gradient', 'Accelerated Proximal Gradient'};
+% bar(times, names)
 title('time to convergence for epsilon = 0.01')
 set(gca,'XTick', 1:6,'Xticklabel', names);
