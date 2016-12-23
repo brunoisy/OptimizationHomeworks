@@ -4,7 +4,7 @@ b = data.b;
 lambda = data.lambda;
 x0 = data.x0;
 
-N = 10000; % default number of iterations
+N = 100; % default number of iterations
 epsilon = 0.01;
 fOptimal = 23.673;
 normX0MinusXOptimal = 5.4903;% ||x_0 - x^*||
@@ -23,23 +23,26 @@ L = 2*normest(A'*A);
 mu = (-lambda*n+sqrt(lambda^2*n^2+4*n*normest(A'*A)*epsilon))/(2*normest(A'*A)*n);
 LSmoothed = L+lambda/mu;% mu et lSmoothed sont différents pr acc !
 
+muAcc = (-lambda*n+sqrt(lambda^6*n^4-4*n*epsilon*normest(A'*A)))/(2*n*normest(A'*A));
+LSmoothedAcc = L+lambda/muAcc;
+
 bndSubgr = @(N)normX0MinusXOptimal^2/(2*alpha*N) + alpha*G^2/2;
 bndSmoothGr = @(N)lambda*mu*n/2+LSmoothed*normX0MinusXOptimal^2/N;
-bndSmoothGrAcc = @(N)epsilon+2*LSmoothed*normX0MinusXOptimal^2/(N+1)^2;
+bndSmoothGrAcc = @(N)lambda*muAcc*n/2+2*LSmoothedAcc*normX0MinusXOptimal^2/(N+1)^2;
 bndProxGr = @(N)L/(2*N)*normX0MinusXOptimal^2;
 bndProxGrAcc = @(N)L/(2*N)*normX0MinusXOptimal^2;
 % boundInteriorPoint =
 bounds = {applyToColumns(bndSubgr,1:N+1), applyToColumns(bndSmoothGr,1:N+1), applyToColumns(bndSmoothGrAcc,1:N+1), applyToColumns(bndProxGr,1:N+1), applyToColumns(bndProxGrAcc,1:N+1)};
 
 % plots (every method except interior point)
-for i = 1:length(methods) 
+for i=3 %i = 1:length(methods) 
     method = methods{i};
     x = method(A, b, lambda, x0, N, epsilon);
     fx = applyToColumns(f,x);
     figure
     semilogy(1:(N+1),fx-fOptimal, '-b') % true convergence
     hold on
-    semilogy(1:(N+1),bounds{i});    
+    semilogy(1:(N+1),bounds{i}, '-r');    
     title(['Convergence behavior for', ' ', names{i}],'FontSize',16)
     ylabel('$|f(x_k) - f(x^*)|$','Interpreter','latex','Fontsize',16)
     xlabel('number of iterations k','Fontsize',16);

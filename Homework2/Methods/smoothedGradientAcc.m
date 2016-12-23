@@ -1,7 +1,8 @@
 function [ x ] = smoothedGradientAcc(A, b, lambda, x0, N, epsilon)
 
 n = length(x0);
-mu = epsilon/(lambda*n);
+%mu = epsilon/(lambda*n);
+mu = (-lambda*n+sqrt(lambda^6*n^4-4*n*epsilon*normest(A'*A)))/(2*n*normest(A'*A));
 L = 2*normest(A'*A)+lambda/mu;
 
 h = 1/L;
