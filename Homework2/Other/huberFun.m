@@ -1,6 +1,12 @@
 function y = huberFun(X)
-%HUBERFUN Summary of this function goes here
-%   Detailed explanation goes here
+%	huberFunction 
+% it computes Huber function for X
+%
+% INPUT :
+%	- X 
+%
+% OUTPUT :
+%	- Y : the huber function for all X
 
 lambda = 1;
 mu = 5;
