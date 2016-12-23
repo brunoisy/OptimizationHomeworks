@@ -12,7 +12,7 @@ x(:,2) = x0;
 for k = 2:N+1
     beta = (k-3)/k;
     y = x(:,k)+beta*(x(:,k)-x(:,k-1));
-    x(:,k+1) = y -1/L*gradF(y);
+    x(:,k+1) = y -h*gradF(y);
 end
 x = x(:,2:end); % to remove x(-1)
 
