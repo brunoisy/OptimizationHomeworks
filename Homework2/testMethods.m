@@ -32,7 +32,7 @@ bndProxGrAcc = @(N)L/(2*N)*normX0MinusXOptimal^2;
 bounds = {applyToColumns(bndSubgr,1:N+1), applyToColumns(bndSmoothGr,1:N+1), applyToColumns(bndSmoothGrAcc,1:N+1), applyToColumns(bndProxGr,1:N+1), applyToColumns(bndProxGrAcc,1:N+1)};
 
 % plots (every method except interior point)
-for i=[2] %i = 1:length(methods) 
+for i=[5] %i = 1:length(methods) 
     method = methods{i};
     x = method(A, b, lambda, x0, N, epsilon);
     fx = applyToColumns(f,x);
