@@ -50,12 +50,12 @@ tic
 proximalGradientAcc(A, b, lambda, x0, N5, epsilon);
 times(5) = toc;
 
-%%%      Interior Point Methods  	%%%
-tic
-interiorPoint(A, b, lambda);
-times(6) = toc;
-
+% %%%      Interior Point Methods  	%%%
+% tic
+% interiorPoint(A, b, lambda);
+% times(6) = toc;
+% 
 bar(times)
 names = {'Subgradient', 'Smoothed Grad', 'Acc Smoothed Grad', 'Proximal Grad', 'Acc Proximal Grad', 'Interior Point'};
 title('time to convergence for epsilon = 0.01')
-set(gca,'XTick', 1:6,'Xticklabel', names);
+set(gca,'XTick', 1:6,'Xticklabel', names, 'FontSize', 16);
