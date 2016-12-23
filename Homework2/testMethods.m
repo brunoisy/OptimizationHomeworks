@@ -58,8 +58,7 @@ semilogy(1:length(fx),fx-fOptimal,'-b') % true convergence
 hold on
 %semilogy(1:nint,boundInt,'r');
 title('Convergence behavior for interior point','FontSize',16)
-xlabel('number of it
-erations k','Fontsize',16);
+xlabel('number of iterations k','Fontsize',16);
 legend('true convergence', 'theoretical bound on convergence');
 
 
