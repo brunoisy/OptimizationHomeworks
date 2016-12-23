@@ -32,6 +32,7 @@ bndProxGrAcc = @(N)L/(2*N)*normX0MinusXOptimal^2;
 bounds = {applyToColumns(bndSubgr,1:N+1), applyToColumns(bndSmoothGr,1:N+1), applyToColumns(bndSmoothGrAcc,1:N+1), applyToColumns(bndProxGr,1:N+1), applyToColumns(bndProxGrAcc,1:N+1)};
 
 % plots (every method except interior point)
+
 for i= 1 %i = 1:length(methods) 
     method = methods{i};
     x = method(A, b, lambda, x0, N, epsilon);
@@ -57,7 +58,8 @@ semilogy(1:length(fx),fx-fOptimal,'-b') % true convergence
 hold on
 %semilogy(1:nint,boundInt,'r');
 title('Convergence behavior for interior point','FontSize',16)
-xlabel('number of iterations k','Fontsize',16);
+xlabel('number of it
+erations k','Fontsize',16);
 legend('true convergence', 'theoretical bound on convergence');
 
 
