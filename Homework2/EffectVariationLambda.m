@@ -10,10 +10,12 @@ lambdavec = [1, 0.5, 0.1, 0.05, 0.01, 0.001];
 
 n = length(lambdavec);
 
+f = @(x)norm(A*x-b)^2+lambda*norm(x,1);
+
 figure;
 for i = 1:n
 	lambda = lambdavec(i);
-	x = proximalGradientAcc(A, b, lambda, x0, N, epsilon);
+	x = proximalGradient(A, b, lambda, x0, N, epsilon);
 	%[x, objs] = interiorPoint(A, b, lambda)
 	fx = applyToColumns(f,x);
 	semilogy(1:(N+1),fx-fOptimal) 
