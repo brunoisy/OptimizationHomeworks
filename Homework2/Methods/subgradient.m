@@ -4,7 +4,7 @@ function [ x ] = subgradient(A, b, lambda, x0, N, epsilon)
 
 n= length(x0);
 G = 2*norm(A'*(A*x0-b))+sqrt(n)*lambda;
-alpha = 2*epsilon/(G^2);
+alpha = epsilon/(G^2);
 
 x = zeros(n,N+1);
 x(:,1) = x0;
