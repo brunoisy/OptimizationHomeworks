@@ -1,4 +1,20 @@
 function [ x ] = smoothedGradientAcc(A, b, lambda, x0, N, epsilon)
+%	smoothedGradientAcc
+% It computes the optimal solution for l1-LS problem
+% by accelerated gradient method with smoothing
+%
+% min{f(x) = ||Ax-b||^2 + lambda ||x||_1}
+%
+% INPUT :
+%	- A : matrix A from the problem
+%	- b : matrix b from the problem
+% 	- lambda : parameter lambda from the problem
+%	- x0 : initial point
+%       - N : Number of iterations
+%       - epsilon : accuracy
+%
+% OUTPUT
+%	- x : solution for each iteration
 
 n = length(x0);
 mu = (-lambda*n+sqrt(lambda^2*n^2+4*n*normest(A'*A)*epsilon))/(2*normest(A'*A)*n);

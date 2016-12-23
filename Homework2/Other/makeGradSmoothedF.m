@@ -1,6 +1,17 @@
 function [gradF] = makeGradSmoothedF(A, b, mu, lambda)
-%MAKEGRADSMOOTHEDF Summary of this function goes here
-%   Detailed explanation goes here
+%	makeGradSmoothedF
+% It obtain a gradient smooth for l1-LS problem
+%
+% min{f(x) = ||Ax-b||^2 + lambda ||x||_1}
+%
+% INPUT :
+%	- A : matrix A from the problem
+%	- b : matrix b from the problem
+% 	- lambda : parameter lambda from the problem
+%	- mu : parameter
+%
+% OUTPUT
+%	- gradF : Gradient with smoothing
 
     function y = gradH(x)
         if abs(x) <= mu 

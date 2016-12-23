@@ -1,6 +1,18 @@
 function [ x, objs] = interiorPoint(A, b, lambda)
-%UNTITLED2 Summary of this function goes here
-%   Detailed explanation goes here
+%	InteriorPoint 
+% It computes the optimal solution for l1-LS problem
+% thanks to SEDUMI
+%
+% min{f(x) = ||Ax-b||^2 + lambda ||x||_1}
+%
+% INPUT :
+%	- A : matrix A from the problem
+%	- b : matrix b from the problem
+% 	- lambda : parameter lambda from the problem
+% OUTPUT
+%	- x : optimal solution
+% 	- objs : value of objective function 
+%		 at each iterations
 
 [m,n] = size(A);
 Atilde = [zeros(m,n),          A, zeros(m,n), zeros(m,n), zeros(m,1), zeros(m,1),  -eye(m,m);
